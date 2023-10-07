@@ -46,7 +46,7 @@ import M from 'materialize-css'
 
 export default {
   data: () => ({
-    date: new Date().getTime(),
+    date: new Date().toLocaleString(),
     interval: null,
     dropdown: null
   }),
@@ -58,7 +58,7 @@ export default {
   },
   mounted () {
     this.interval = setInterval(() => {
-      this.date = new Date().getTime()
+      this.date = new Date().toLocaleString()
     }, 1000)
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, { constrainWidth: true })
   },
