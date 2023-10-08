@@ -53,7 +53,7 @@ export default {
   }),
   methods: {
     logout: () => {
-      router.push('/login')
+      router.push('/login?message=logout')
     }
   },
   mounted () {
