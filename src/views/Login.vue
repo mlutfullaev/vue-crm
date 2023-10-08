@@ -34,7 +34,7 @@
           Введите пароль
         </small>
         <small
-          v-else-if="!v$.password.minlength && v$.password.$dirty"
+          v-else-if="!v$.password.minLength.$response && v$.password.$dirty"
           class="helper-text invalid">
           Пароль должен быть больше {{v$.password.minLength.$params.min}} символов
         </small>
@@ -73,11 +73,15 @@ export default {
   },
   methods: {
     submitHandler () {
-      console.log(this.v$.password)
       if (this.v$.$invalid) {
         this.v$.$touch()
         return
       }
+      const formData = {
+        email: this.email,
+        password: this.password
+      }
+      console.log(formData)
       this.$router.push('/')
     }
   }
