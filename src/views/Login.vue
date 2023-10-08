@@ -1,16 +1,43 @@
 <template>
-  <form class="card auth-card">
+  <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
-        <input id="email" type="text" class="validate">
+        <input
+          v-model.trim="email"
+          id="email"
+          type="text"
+          :class="{invalid: v$.email.$error}">
         <label for="email">Email</label>
-        <small class="helper-text invalid">Email</small>
+        <small
+          v-if="!v$.email.required.$response && v$.email.$dirty"
+          class="helper-text invalid">
+          Поле Email не должно быть пустым
+        </small>
+        <small
+          v-else-if="!v$.email.email.$response && v$.email.$dirty"
+          class="helper-text invalid">
+          Введите корректный Email
+        </small>
       </div>
       <div class="input-field">
-        <input id="password" type="password" class="validate">
+        <input
+          v-model.trim="password"
+          id="password"
+          type="password"
+          class="validate"
+          :class="{invalid: v$.password.$error}">
         <label for="password">Пароль</label>
-        <small class="helper-text invalid">Password</small>
+        <small
+          v-if="!v$.password.required.$response && v$.password.$dirty"
+          class="helper-text invalid">
+          Введите пароль
+        </small>
+        <small
+          v-else-if="!v$.password.minlength && v$.password.$dirty"
+          class="helper-text invalid">
+          Пароль должен быть больше {{v$.password.minLength.$params.min}} символов
+        </small>
       </div>
     </div>
     <div class="card-action">
@@ -23,8 +50,36 @@
 
       <p class="center">
         Нет аккаунта?
-        <a href="/">Зарегистрироваться</a>
+        <router-link to="/register">Зарегистрироваться</router-link>
       </p>
     </div>
   </form>
 </template>
+
+<script>
+import { useVuelidate } from '@vuelidate/core'
+import { email, required, minLength } from '@vuelidate/validators'
+
+export default {
+  name: 'login',
+  data: () => ({
+    v$: useVuelidate(),
+    email: '',
+    password: ''
+  }),
+  validations: {
+    email: { email, required },
+    password: { required, minLength: minLength(7) }
+  },
+  methods: {
+    submitHandler () {
+      console.log(this.v$.password)
+      if (this.v$.$invalid) {
+        this.v$.$touch()
+        return
+      }
+      this.$router.push('/')
+    }
+  }
+}
+</script>

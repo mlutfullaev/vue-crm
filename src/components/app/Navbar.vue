@@ -43,6 +43,7 @@
 </template>
 <script>
 import M from 'materialize-css'
+import router from '@/router'
 
 export default {
   data: () => ({
@@ -52,8 +53,7 @@ export default {
   }),
   methods: {
     logout: () => {
-      console.log('logout')
-      this.$router.push('/login')
+      router.push('/login')
     }
   },
   mounted () {
