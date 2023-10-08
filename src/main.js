@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import firebase from 'firebase/compat/app'
 import { getAuth } from 'firebase/auth'
 import App from './App.vue'
+import Loader from '@/components/app/Loader.vue'
 import router from './router'
 import store from './store'
 import messagePlugin from '@/utils/message.plugin'
@@ -25,6 +26,7 @@ getAuth().onAuthStateChanged(() => {
     app.use(store)
     app.use(router)
     app.use(messagePlugin)
+    app.component('Loader', Loader)
     app.mount('#app')
   }
 })
