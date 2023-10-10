@@ -8,6 +8,7 @@ import store from './store'
 import messagePlugin from '@/utils/message.plugin'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
+import tooltipDirective from '@/directives/tooltip.directive'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAiNy2HnXIj_MmfygdVKXB9-l1j-dMaNOM',
@@ -26,6 +27,7 @@ getAuth().onAuthStateChanged(() => {
     app.use(store)
     app.use(router)
     app.use(messagePlugin)
+    app.directive('tooltip', tooltipDirective)
     app.component('Loader', Loader)
     app.mount('#app')
   }

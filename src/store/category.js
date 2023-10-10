@@ -9,7 +9,7 @@ export default {
         return new Promise(resolve => {
           const categories = []
           onValue(categoriesRef, (snapshot) => {
-            const data = snapshot.val()
+            const data = snapshot.val() || {}
             Object.keys(data).forEach(key => {
               categories.push({ ...data[key], id: key })
             })
