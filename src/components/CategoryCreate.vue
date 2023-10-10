@@ -27,6 +27,9 @@
             v-if="!v$.limit.minValue.$response && v$.limit.$dirty"
             class="helper-text invalid"
           >Минимальная величина {{v$.limit.minValue.$params.min}}</span>
+          <span
+            v-if="!v$.limit.required.$response && v$.limit.$dirty"
+            class="helper-text invalid">Лимит не может быть пустым</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
@@ -51,7 +54,7 @@ export default {
   }),
   validations: {
     title: { required },
-    limit: { minValue: minValue(100) }
+    limit: { required, minValue: minValue(100) }
   },
   mounted () {
     M.updateTextFields()
@@ -68,7 +71,6 @@ export default {
           title: this.title,
           limit: this.limit
         })
-
         this.title = ''
         this.limit = 100
         this.v$.$reset()
