@@ -1,14 +1,15 @@
 import { createApp } from 'vue'
 import firebase from 'firebase/compat/app'
+import VueAwesomePaginate from 'vue-awesome-paginate'
 import { getAuth } from 'firebase/auth'
 import App from './App.vue'
 import Loader from '@/components/app/Loader.vue'
 import router from './router'
 import store from './store'
+import tooltipDirective from '@/directives/tooltip.directive'
 import messagePlugin from '@/utils/message.plugin'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
-import tooltipDirective from '@/directives/tooltip.directive'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAiNy2HnXIj_MmfygdVKXB9-l1j-dMaNOM',
@@ -29,6 +30,7 @@ getAuth().onAuthStateChanged(() => {
     app.use(messagePlugin)
     app.directive('tooltip', tooltipDirective)
     app.component('Loader', Loader)
+    app.use(VueAwesomePaginate)
     app.mount('#app')
   }
 })
