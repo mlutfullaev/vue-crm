@@ -2,7 +2,6 @@ import M from 'materialize-css'
 
 export default {
   created (el, binding) {
-    console.log(binding)
     M.Tooltip.init(el, { html: binding.value })
   },
   unmounted (el) {

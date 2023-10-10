@@ -33,8 +33,8 @@ const routes = [
     component: () => import('@/views/Profile.vue')
   },
   {
-    path: '/detailRecord',
-    name: 'detailRecord',
+    path: '/detail/:id',
+    name: 'detail/:id',
     meta: { layout: 'main', auth: true },
     component: () => import('@/views/DetailRecord.vue')
   },
