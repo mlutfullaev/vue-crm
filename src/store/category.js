@@ -1,4 +1,4 @@
-import { getDatabase, ref, push, onValue, update } from 'firebase/database'
+import { getDatabase, ref, push, onValue, update, child } from 'firebase/database'
 
 export default {
   actions: {
@@ -35,6 +35,21 @@ export default {
       try {
         const uid = await dispatch('getUid')
         await update(ref(getDatabase()), { [`/users/${uid}/categories/${id}`]: { title, limit } })
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
+    },
+    async fetchCategoryById ({ dispatch, commit }, id) {
+      try {
+        const uid = await dispatch('getUid')
+        const recordsRef = await child(ref(getDatabase()), `/users/${uid}/categories/${id}`)
+        return new Promise(resolve => {
+          onValue(recordsRef, (snapshot) => {
+            const data = snapshot.val() || {}
+            resolve(data)
+          })
+        })
       } catch (e) {
         commit('setError', e)
         throw e
