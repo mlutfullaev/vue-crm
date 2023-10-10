@@ -40,7 +40,7 @@ export default {
         .filter(r => r.categoryId === cat.id)
         .filter(r => r.type === 'outcome')
         .reduce((total, record) => {
-          const all = total += +record.amount
+          const all = total + +record.amount
           return all
         }, 0)
 

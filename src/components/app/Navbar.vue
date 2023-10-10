@@ -43,7 +43,6 @@
 </template>
 <script>
 import M from 'materialize-css'
-import router from '@/router'
 
 export default {
   data: () => ({
@@ -59,12 +58,7 @@ export default {
   },
   computed: {
     name () {
-      if (this.$store.getters.info) {
-        return this.$store.getters.info.name
-      } else {
-        router.push('/login?message=authdelay')
-        return 'No User'
-      }
+      return this.$store.getters.info.name
     }
   },
   mounted () {

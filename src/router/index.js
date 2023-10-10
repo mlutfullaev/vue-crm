@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getAuth } from 'firebase/auth'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/Home.vue')
   },
   {
@@ -22,37 +23,37 @@ const routes = [
   {
     path: '/categories',
     name: 'categories',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/Categories.vue')
   },
   {
     path: '/profile',
     name: 'profile',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/Profile.vue')
   },
   {
     path: '/detailRecord',
     name: 'detailRecord',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/DetailRecord.vue')
   },
   {
     path: '/history',
     name: 'history',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/History.vue')
   },
   {
     path: '/planning',
     name: 'planning',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/Planning.vue')
   },
   {
     path: '/record',
     name: 'record',
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true },
     component: () => import('@/views/Record.vue')
   }
 ]
@@ -62,4 +63,12 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  const currentUser = getAuth().currentUser
+  const requireAuth = to.matched.some(route => route.meta.auth)
+
+  if (requireAuth && !currentUser) {
+    next('/login?message=authdelay')
+  } else next()
+})
 export default router
