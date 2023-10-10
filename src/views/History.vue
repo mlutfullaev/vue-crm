@@ -5,9 +5,10 @@
     </div>
 
     <div class="history-chart">
-      <canvas></canvas>
+      <Pie
+        :data="chartData"
+      />
     </div>
-
     <Loader v-if="loading" />
     <p class="center" v-else-if="!records.length">Записей еще нет</p>
     <section v-else >
@@ -27,28 +28,79 @@
 <script>
 import HistoryTable from '@/components/HistoryTable.vue'
 import paginationMixin from '@/mixins/pagination.mixin'
-
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Pie } from 'vue-chartjs'
+ChartJS.register(ArcElement, Tooltip, Legend)
 export default {
   name: 'History',
   mixins: [paginationMixin],
-  components: { HistoryTable },
+  components: { Pie, HistoryTable },
   data: () => ({
     records: [],
+    categories: [],
+    chartData: {
+      labels: [],
+      datasets: [
+        {
+          backgroundColor: [],
+          data: []
+        }
+      ]
+    },
     loading: true
   }),
+  computed: {
+    // chartData() {
+    //   return {
+    //     labels: this.categories.map(c => c.title),
+    //     dataset: [{
+    //       label: 'Расходы по категориям',
+    //       data: this.categories.map(c => this.records.reduce((total, record) => {
+    //         if (record.categoryId === c.id && record.type === 'outcome') {
+    //           total += record.amount
+    //         }
+    //         return total
+    //       }))
+    //     }]
+    //   }
+    // }
+  },
   async mounted () {
     this.records = await this.$store.dispatch('fetchRecords')
-    const categories = await this.$store.dispatch('fetchCategories')
+    this.categories = await this.$store.dispatch('fetchCategories')
 
-    this.setupPagination(this.records.map(record => {
-      return {
-        ...record,
-        categoryTitle: categories.find(c => c.id === record.categoryId).title,
-        typeClass: record.type === 'income' ? 'green' : 'red',
-        typeText: record.type === 'income' ? 'Доход' : 'Расход'
-      }
-    }))
+    this.chartData = {
+      labels: this.categories.map(c => c.title),
+      datasets: [{
+        label: 'Расходы по категориям',
+        data: this.categories.map(c => {
+          let total = 0
+          this.records.forEach(record => {
+            if (record.categoryId === c.id && record.type === 'outcome') {
+              total += +record.amount
+            }
+          })
+          return total
+        }),
+        backgroundColor: this.categories.map(c => '#' + Math.floor(Math.random() * 16777215).toString(16))
+      }]
+    }
+
+    this.setup()
+
     this.loading = false
+  },
+  methods: {
+    setup () {
+      this.setupPagination(this.records.map(record => {
+        return {
+          ...record,
+          categoryTitle: this.categories.find(c => c.id === record.categoryId).title,
+          typeClass: record.type === 'income' ? 'green' : 'red',
+          typeText: record.type === 'income' ? 'Доход' : 'Расход'
+        }
+      }))
+    }
   }
 }
 </script>
