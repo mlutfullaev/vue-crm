@@ -5,7 +5,7 @@
         <a href="#" @click.prevent="$emit('menuBtn')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{date}}</span>
+        <span class="black-text">{{$dateCustom(date)}}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -26,13 +26,13 @@
                 to="/profile"
                 href="#"
                 class="black-text">
-                <i class="material-icons">account_circle</i>Профиль
+                <i class="material-icons">account_circle</i>{{$localize('profileTitle')}}
               </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
               <a href="#" class="black-text" @click.prevent="logout">
-                <i class="material-icons">assignment_return</i>Выйти
+                <i class="material-icons">assignment_return</i>{{ $localize('logout') }}
               </a>
             </li>
           </ul>
@@ -46,7 +46,7 @@ import M from 'materialize-css'
 
 export default {
   data: () => ({
-    date: new Date().toLocaleString(),
+    date: new Date(),
     interval: null,
     dropdown: null
   }),
@@ -63,7 +63,7 @@ export default {
   },
   mounted () {
     this.interval = setInterval(() => {
-      this.date = new Date().toLocaleString()
+      this.date = new Date()
     }, 1000)
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, { constrainWidth: true })
   },

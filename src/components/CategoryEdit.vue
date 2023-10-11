@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Редактировать</h4>
+        <h4>{{ $localize('edit') }}</h4>
       </div>
       <form @submit.prevent="submitHandler">
         <div class="input-field">
@@ -15,7 +15,7 @@
               {{ c.title }}
             </option>
           </select>
-          <label>Выберите категорию</label>
+          <label>{{ $localize('chooseCategory') }}</label>
         </div>
 
         <div class="input-field">
@@ -24,10 +24,10 @@
               id="name"
               v-model="title"
               :class="{invalid: v$.title.error}">
-          <label for="name">Название</label>
+          <label for="name">{{ $localize('name') }}</label>
           <span
             v-if="!v$.title.required.$response && v$.title.$dirty"
-            class="helper-text invalid">Название не может быть пустым</span>
+            class="helper-text invalid">{{ $localize('nameEmpty') }}</span>
         </div>
 
         <div class="input-field">
@@ -36,17 +36,17 @@
             type="number"
             v-model="limit"
             :class="{invalid: v$.limit.error}">
-          <label for="limit">Лимит</label>
+          <label for="limit">{{ $localize('limit') }}</label>
           <span
             v-if="!v$.limit.minValue.$response && v$.limit.$dirty"
-            class="helper-text invalid">Минимальная величина {{ v$.limit.minLength.$params.min }}</span>
+            class="helper-text invalid">{{ $localize('minLength') }} {{ v$.limit.minLength.$params.min }}</span>
           <span
             v-if="!v$.limit.required.$response && v$.limit.$dirty"
-            class="helper-text invalid">Лимит не может быть пустым</span>
+            class="helper-text invalid">{{ $localize('limitEmpty') }}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Обновить
+          {{ $localize('update') }}
           <i class="material-icons right">send</i>
         </button>
       </form>

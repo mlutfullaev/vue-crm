@@ -14,7 +14,7 @@
               <p>Сумма: {{record.amount}}</p>
               <p>Категория: {{record.categoryTitle}}</p>
               <br>
-              <small>{{record.date}}</small>
+              <small>{{$dateCustom(record.date, 'date-time')}}</small>
             </div>
           </div>
         </div>

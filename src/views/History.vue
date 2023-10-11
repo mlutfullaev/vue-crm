@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{$localize('historyRecord')}}</h3>
     </div>
 
     <div class="history-chart">
@@ -10,7 +10,7 @@
       />
     </div>
     <Loader v-if="loading" />
-    <p class="center" v-else-if="!records.length">Записей еще нет</p>
+    <p class="center" v-else-if="!records.length">{{$localize('recordsEmpty')}}</p>
     <section v-else >
       <HistoryTable :page="page" :records="items" />
 
@@ -49,22 +49,6 @@ export default {
     },
     loading: true
   }),
-  computed: {
-    // chartData() {
-    //   return {
-    //     labels: this.categories.map(c => c.title),
-    //     dataset: [{
-    //       label: 'Расходы по категориям',
-    //       data: this.categories.map(c => this.records.reduce((total, record) => {
-    //         if (record.categoryId === c.id && record.type === 'outcome') {
-    //           total += record.amount
-    //         }
-    //         return total
-    //       }))
-    //     }]
-    //   }
-    // }
-  },
   async mounted () {
     this.records = await this.$store.dispatch('fetchRecords')
     this.categories = await this.$store.dispatch('fetchCategories')

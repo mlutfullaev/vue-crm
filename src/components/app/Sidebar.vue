@@ -7,39 +7,42 @@
     >
       <router-link
         :to="link.url"
-        class="waves-effect waves-orange pointer">{{ link.title }}
+        class="waves-effect waves-orange pointer">{{ $localize(link.title) }}
       </router-link>
     </li>
   </ul>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: ['menuOpen'],
   data: () => ({
     links: [
       {
-        title: 'Счет',
+        title: 'menuMain',
         url: '/'
       },
       {
-        title: 'История',
+        title: 'menuHistory',
         url: '/history'
       },
       {
-        title: 'Планирование',
+        title: 'menuPlanning',
         url: '/planning'
       },
       {
-        title: 'Новая запись',
+        title: 'menuRecord',
         url: '/record'
       },
       {
-        title: 'Категории',
+        title: 'menuCategories',
         url: '/categories'
       }
     ]
   }),
   computed: {
+    ...mapGetters(['info'])
   }
 }
 </script>

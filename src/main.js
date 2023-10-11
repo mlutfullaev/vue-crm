@@ -8,8 +8,11 @@ import router from './router'
 import store from './store'
 import tooltipDirective from '@/directives/tooltip.directive'
 import messagePlugin from '@/utils/message.plugin'
+import localizePlugin from '@/utils/localize.plugin'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
+import currencyPlugin from '@/utils/currency.plugin'
+import datePlugin from '@/utils/date.plugin'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAiNy2HnXIj_MmfygdVKXB9-l1j-dMaNOM',
@@ -28,6 +31,9 @@ getAuth().onAuthStateChanged(() => {
     app.use(store)
     app.use(router)
     app.use(messagePlugin)
+    app.use(localizePlugin)
+    app.use(currencyPlugin)
+    app.use(datePlugin)
     app.directive('tooltip', tooltipDirective)
     app.component('Loader', Loader)
     app.use(VueAwesomePaginate)

@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Создать</h4>
+        <h4>{{ $localize('create') }}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -12,8 +12,11 @@
             id="name"
             v-model="title"
             :class="{invalid: v$.title.error}">
-          <label for="name">Название</label>
-          <span v-if="!v$.title.required.$response && v$.title.$dirty" class="helper-text invalid">Название не может быть пустым</span>
+          <label for="name">{{ $localize('name') }}</label>
+          <span
+            v-if="!v$.title.required.$response && v$.title.$dirty"
+            class="helper-text invalid"
+          >{{ $localize('nameEmpty') }}</span>
         </div>
 
         <div class="input-field">
@@ -22,18 +25,18 @@
             type="number"
             v-model.number="limit"
             :class="{invalid: v$.limit.error}">
-          <label for="limit">Лимит</label>
+          <label for="limit">{{ $localize('limit') }}</label>
           <span
             v-if="!v$.limit.minValue.$response && v$.limit.$dirty"
             class="helper-text invalid"
-          >Минимальная величина {{v$.limit.minValue.$params.min}}</span>
+          >{{ $localize('minLength') }} {{v$.limit.minValue.$params.min}}</span>
           <span
             v-if="!v$.limit.required.$response && v$.limit.$dirty"
-            class="helper-text invalid">Лимит не может быть пустым</span>
+            class="helper-text invalid">{{ $localize('limitEmpty') }}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Создать
+          {{ $localize('create') }}Создать
           <i class="material-icons right">send</i>
         </button>
       </form>

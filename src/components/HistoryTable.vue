@@ -14,8 +14,8 @@
     <tbody>
     <tr v-for="(record, i) in records" :key="record.id">
       <td>{{i + 1}}</td>
-      <td>{{ record.amount }}</td>
-      <td>{{record.date}}</td>
+      <td>{{ $currency(record.amount) }}</td>
+      <td>{{$dateCustom(record.date)}}</td>
       <td>{{record.categoryTitle}}</td>
       <td>
         <span class="white-text badge" :class="record.typeClass">{{record.typeText}}</span>

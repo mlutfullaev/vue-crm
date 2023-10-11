@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{ $localize('loginName') }}</span>
       <div class="input-field">
         <input
           v-model.trim="email"
@@ -12,12 +12,12 @@
         <small
           v-if="!v$.email.required.$response && v$.email.$dirty"
           class="helper-text invalid">
-          Поле Email не должно быть пустым
+          {{ $localize('emailEmpty') }}
         </small>
         <small
           v-else-if="!v$.email.email.$response && v$.email.$dirty"
           class="helper-text invalid">
-          Введите корректный Email
+          {{ $localize('enterCorrectEmail') }}
         </small>
       </div>
       <div class="input-field">
@@ -27,30 +27,30 @@
           type="password"
           class="validate"
           :class="{invalid: v$.password.$error}">
-        <label for="password">Пароль</label>
+        <label for="password">{{ $localize('password') }}</label>
         <small
           v-if="!v$.password.required.$response && v$.password.$dirty"
           class="helper-text invalid">
-          Введите пароль
+          {{ $localize('enterPassword') }}
         </small>
         <small
           v-else-if="!v$.password.minLength.$response && v$.password.$dirty"
           class="helper-text invalid">
-          Пароль должен быть больше {{v$.password.minLength.$params.min}} символов
+          {{ $localize('minLength') }} {{v$.password.minLength.$params.min}}
         </small>
       </div>
     </div>
     <div class="card-action">
       <div>
         <button class="btn waves-effect waves-light auth-submit" type="submit">
-          Войти
+          {{ $localize('login') }}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        {{ $localize('noAccount') }}
+        <router-link to="/register">{{ $localize('register') }}</router-link>
       </p>
     </div>
   </form>

@@ -2,7 +2,7 @@
 
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{ $localize('menuCategories') }}</h3>
     </div>
     <section>
       <loader v-if="loading"/>
@@ -13,7 +13,7 @@
           :key="updatedCount"
           @updateCategory="updateCategory"
           :categories="categories"/>
-        <p v-else class="center">Категории пока нет</p>
+        <p v-else class="center">{{ $localize('noCategories') }}</p>
       </div>
     </section>
   </div>
