@@ -1,4 +1,6 @@
 # vue-crm
+# Домашняя бухгалтерия
+[Live Demo](https://github.com/)
 
 ## Project setup
 ```
