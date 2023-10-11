@@ -1,6 +1,7 @@
 # vue-crm
 # Домашняя бухгалтерия
-[Live Demo](https://github.com/)
+[Live Demo](https://github.com/)<br>
+<p>login: <b>adf@mail.ru</b> | <b>1111111</b></p>
 
 ## Project setup
 ```
